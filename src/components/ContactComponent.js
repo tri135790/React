@@ -138,9 +138,7 @@ class Contact extends Component {
                                             show="touched"
                                             messages={{
                                                 required: 'Required',
-                                                minLength: 'Must be greater than 2 numbers',
-                                                maxLength: 'Must be 15 numbers or less',
-                                                isNumber: 'Must be a number'
+                                                validEmail: 'Invalid Email Address'
                                             }}
                                     />
                                 </Col>
