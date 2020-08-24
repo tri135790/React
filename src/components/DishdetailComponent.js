@@ -24,7 +24,9 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                 </div>
                    <div className="row">
                             <RenderDish dish={props.dish}/>
-                            <RenderComments comments={props.comments} />
+                            <RenderComments comments={props.comments} 
+                            addComment={props.addComment}
+                            dishId={props.dish.id} />
                    </div>
                </div> 
            )
@@ -51,7 +53,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
         );
     };
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
 
         const listComments = comments.map((comment) => {
             return(
@@ -68,7 +70,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                     <h4>Comments</h4>
                     <ul className="list-unstyled">
                         {listComments}
-                        <CommentForm/>
+                        <CommentForm dishId={dishId} addComment={addComment}/>
                     </ul>
                 </div>
                 
@@ -95,8 +97,8 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
         }
 
         handleSubmit(values) {
-            console.log("Current State is: " + JSON.stringify(values));
-            alert("Current State is: " + JSON.stringify(values));
+            this.toggleModal();
+            this.props.addComment(this.props.dishId,values.rating, values.author, values.comment)
         }
 
         toggleModal() {
@@ -129,8 +131,8 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                                     </Control.select>
                                 </Row>
                                 <Row className="form-group m-1 mt-3">
-                                    <Label htmlFor="yourname">Your Name</Label>
-                                    <Control.text model=".yourname" id="yourname" name="yourname" placeholder="Your Name"
+                                    <Label htmlFor="author">Your Name</Label>
+                                    <Control.text model=".author" id="author" name="author" placeholder="Your Name"
                                     className="form-control"
                                     validators={{
                                         minLength: minLength(3), maxLength: maxLength(15)
